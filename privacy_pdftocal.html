@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light" data-lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — PDFtoCal</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --bg:        #f7f5f0;
+      --surface:   #ffffff;
+      --surface2:  #f0ece0;
+      --border:    #e5dfc8;
+      --accent:    #c9a84c;
+      --accent-h:  #b8922e;
+      --text:      #1a1628;
+      --muted:     #7a6e5a;
+      --tag-bg:    rgba(201,168,76,0.10);
+      --tag-color: #a07820;
+      --shadow:    0 4px 24px rgba(201,168,76,0.10);
+      --nav-bg:    rgba(247,245,240,0.90);
+      --dot-color: rgba(201,168,76,0.15);
+    }
+    [data-theme="dark"] {
+      --bg:        #0e0c18;
+      --surface:   #15122a;
+      --surface2:  #1c1838;
+      --border:    #2a2448;
+      --accent:    #c9a84c;
+      --accent-h:  #e0c070;
+      --text:      #f0e8d0;
+      --muted:     #6a6080;
+      --tag-bg:    rgba(201,168,76,0.10);
+      --tag-color: #c9a84c;
+      --shadow:    0 4px 32px rgba(0,0,0,0.5);
+      --nav-bg:    rgba(14,12,24,0.90);
+      --dot-color: rgba(201,168,76,0.06);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'DM Mono', monospace; min-height: 100vh;
+      transition: background 0.35s, color 0.35s;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+      background-size: 28px 28px; pointer-events: none; z-index: 0;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 18px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: var(--nav-bg); backdrop-filter: blur(14px);
+      transition: background 0.35s, border-color 0.35s;
+    }
+    .logo {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem;
+      letter-spacing: -0.02em; color: var(--text); text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    nav a.back {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.72rem; letter-spacing: 0.1em;
+      text-transform: uppercase; transition: color 0.2s;
+    }
+    nav a.back:hover { color: var(--accent); }
+    .lang-switch {
+      display: flex; border: 1px solid var(--border); border-radius: 3px; overflow: hidden;
+    }
+    .lang-switch button {
+      background: none; border: none; cursor: pointer;
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); padding: 5px 10px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-switch button.active { background: var(--accent); color: #fff; }
+    .toggle { position: relative; width: 44px; height: 24px; cursor: pointer; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-track {
+      position: absolute; inset: 0; background: var(--surface2);
+      border: 1px solid var(--border); border-radius: 12px; transition: background 0.3s;
+    }
+    .toggle-thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 16px; height: 16px; background: var(--accent);
+      border-radius: 50%; transition: transform 0.3s;
+    }
+    .toggle input:checked ~ .toggle-thumb { transform: translateX(20px); }
+    .toggle-label {
+      font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+    }
+    .container {
+      position: relative; z-index: 1;
+      max-width: 720px; margin: 0 auto;
+      padding: 130px 40px 100px;
+    }
+    .page-tag {
+      display: inline-block; font-size: 0.68rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--tag-color); background: var(--tag-bg);
+      border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: 2px; margin-bottom: 28px;
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800; letter-spacing: -0.04em;
+      line-height: 1.1; margin-bottom: 14px;
+    }
+    .updated {
+      font-size: 0.72rem; color: var(--muted);
+      margin-bottom: 56px; padding-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+    }
+    .policy-section { margin-bottom: 48px; }
+    .policy-section h2 {
+      font-family: 'Syne', sans-serif; font-size: 1rem;
+      font-weight: 700; letter-spacing: -0.01em;
+      margin-bottom: 16px; color: var(--text);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .policy-section h2::before {
+      content: ''; display: inline-block;
+      width: 5px; height: 5px;
+      background: var(--accent); border-radius: 50%; flex-shrink: 0;
+    }
+    .policy-section p,
+    .policy-section li {
+      font-size: 0.8rem; line-height: 1.9; color: var(--muted);
+    }
+    .policy-section p + p { margin-top: 10px; }
+    .policy-section ul { list-style: none; padding-left: 16px; margin-top: 10px; }
+    .policy-section ul li { position: relative; padding-left: 16px; margin-bottom: 6px; }
+    .policy-section ul li::before {
+      content: '—'; position: absolute; left: -16px;
+      color: var(--accent); font-size: 0.7rem;
+    }
+    .policy-section a { color: var(--accent); text-decoration: none; }
+    .policy-section a:hover { text-decoration: underline; }
+    .contact-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 28px 32px; margin-top: 56px; border-radius: 0 4px 4px 0;
+    }
+    .contact-box p { font-size: 0.8rem; line-height: 1.8; color: var(--muted); }
+    .contact-box a { color: var(--accent); text-decoration: none; }
+    .contact-box a:hover { text-decoration: underline; }
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border); padding: 36px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    footer p, footer a { font-size: 0.7rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+    [data-lang="en"] .ja { display: none; }
+    [data-lang="ja"] .en { display: none; }
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .container { padding: 100px 24px 60px; }
+      footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo">Oshira<span>Labs</span></a>
+    <div class="nav-right">
+      <a href="index.html" class="back">← Home</a>
+      <div class="lang-switch">
+        <button id="btn-ja" class="active" onclick="setLang('ja')">JA</button>
+        <button id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+      <span class="toggle-label" id="theme-label">Light</span>
+      <label class="toggle">
+        <input type="checkbox" id="theme-toggle">
+        <div class="toggle-track"></div>
+        <div class="toggle-thumb"></div>
+      </label>
+    </div>
+  </nav>
+
+  <div class="container">
+    <span class="page-tag">// legal</span>
+    <h1>Privacy Policy</h1>
+    <p class="updated">
+      <span class="ja">対象アプリ：PDFtoCal　／　最終更新：2026年</span>
+      <span class="en">App: PDFtoCal　／　Last updated: 2026</span>
+    </p>
+
+    <div class="policy-section">
+      <h2><span class="ja">はじめに</span><span class="en">Introduction</span></h2>
+      <p class="ja">OshiraLabs（以下「当開発者」）は、PDFtoCal（以下「本アプリ」）におけるプライバシーを尊重し、個人情報の保護に努めます。本ポリシーは、本アプリが収集・利用する情報について説明するものです。</p>
+      <p class="en">OshiraLabs ("Developer") respects your privacy and is committed to protecting your personal information. This policy explains how PDFtoCal ("App") collects and uses information.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="ja">本アプリの概要</span><span class="en">About This App</span></h2>
+      <p class="ja">PDFtoCalは、iCalendar（.ics）ファイルまたはテキストをAndroidデバイスのカレンダーに登録するアプリです。</p>
+      <p class="en">PDFtoCal registers iCalendar (.ics) files or text into your Android device's calendar.</p>
+      <p class="ja">PDFからiCalへの変換機能は本アプリ内には含まれていません。変換が必要な場合は、ユーザー自身がChatGPT・Claude・Geminiなどの外部AIサービスを利用してください。その際に送信されるデータの取り扱いは各サービスのプライバシーポリシーに従い、当開発者は一切の責任を負いません。</p>
+      <p class="en">PDF-to-iCal conversion is not performed within this App. If conversion is needed, users should use external AI services such as ChatGPT, Claude, or Gemini at their own discretion. Data sent to those services is governed by their respective privacy policies, and the Developer bears no responsibility for such data handling.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="ja">収集する情報</span><span class="en">Information Collected</span></h2>
+      <p class="ja">本アプリ自身がデータを収集することはありません。ただし、広告SDKであるGoogle AdMobにより以下の情報が収集される場合があります：</p>
+      <p class="en">The App itself does not collect any data directly. However, the Google AdMob advertising SDK may collect the following:</p>
+      <ul>
+        <li><span class="ja">広告識別子（Advertising ID）</span><span class="en">Advertising ID</span></li>
+        <li><span class="ja">IPアドレス</span><span class="en">IP address</span></li>
+        <li><span class="ja">アプリの利用状況に関する匿名の統計情報</span><span class="en">Anonymous app usage statistics</span></li>
+        <li><span class="ja">クラッシュレポートおよびエラーログ</span><span class="en">Crash reports and error logs</span></li>
+      </ul>
+      <p class="ja">詳細は <a href="https://policies.google.com/privacy">Googleのプライバシーポリシー</a> をご確認ください。</p>
+      <p class="en">For details, please refer to <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="ja">カレンダーへのアクセス</span><span class="en">Calendar Access</span></h2>
+      <p class="ja">本アプリはAndroidのCalendarProvider APIを通じてデバイス上のカレンダーにアクセスします：</p>
+      <p class="en">The App accesses your device's calendar via the Android CalendarProvider API for the following operations:</p>
+      <ul>
+        <li><span class="ja">カレンダー一覧（アカウント名・カレンダー名）の読み取り</span><span class="en">Reading calendar list (account names and calendar names)</span></li>
+        <li><span class="ja">ユーザーが選択したカレンダーへのイベント書き込み</span><span class="en">Writing events to user-selected calendars</span></li>
+        <li><span class="ja">登録済みイベントのIDを用いた削除</span><span class="en">Deleting events using stored event IDs</span></li>
+      </ul>
+      <p class="ja">これらのデータは端末内でのみ処理されます。現時点では外部サーバーへ送信されることはありません。将来的に機能追加により送信が生じる場合は、明示的な同意を求めた上でポリシーを更新します。</p>
+      <p class="en">This data is processed only on your device. At this time, no calendar data is transmitted to external servers. Should future features require transmission, explicit consent will be requested and this policy will be updated accordingly.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="ja">インターネット接続の用途</span><span class="en">Internet Usage</span></h2>
+      <p class="ja">本アプリがインターネット接続を使用する目的は以下に限定されます：</p>
+      <p class="en">The App uses internet connectivity only for the following purposes:</p>
+      <ul>
+        <li><span class="ja">AdMob広告の読み込み</span><span class="en">Loading AdMob advertisements</span></li>
+        <li><span class="ja">Google Play In-App Review</span><span class="en">Google Play In-App Review</span></li>
+      </ul>
+      <p class="ja">ユーザーのiCalデータや入力内容が本アプリによって外部に送信されることはありません。</p>
+      <p class="en">No iCal data or user input is transmitted externally by the App.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="ja">第三者への提供</span><span class="en">Third-Party Disclosure</span></h2>
+      <p class="ja">当開発者は、法令に基づく場合を除き、ユーザーの個人情報を第三者に提供・開示することはありません。AdMob SDKによるデータ収集はGoogleの責任において行われます。</p>
+      <p class="en">The Developer does not share personal information with third parties except as required by law. Data collection by the AdMob SDK is conducted under Google's responsibility.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="ja">ユーザーの権利</span><span class="en">Your Rights</span></h2>
+      <p class="ja">ユーザーは以下の権利を有します：</p>
+      <p class="en">You have the following rights regarding your data:</p>
+      <ul>
+        <li><span class="ja">収集データへのアクセス・確認</span><span class="en">Access and review of collected data</span></li>
+        <li><span class="ja">データの訂正・削除の要求</span><span class="en">Request for correction or deletion of data</span></li>
+        <li>
+          <span class="ja">広告IDのリセットまたはパーソナライズ広告のオプトアウト（端末設定 › Google › 広告 から変更可能）</span>
+          <span class="en">Reset Advertising ID or opt out of personalized ads (Device Settings › Google › Ads)</span>
+        </li>
+      </ul>
+      <p class="ja">データに関するお問い合わせは下記連絡先までご連絡ください。</p>
+      <p class="en">For any data-related requests, please contact us at the address below.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2><span class="ja">本ポリシーの変更</span><span class="en">Changes to This Policy</span></h2>
+      <p class="ja">本プライバシーポリシーは予告なく変更される場合があります。変更があった場合は本ページにて最新版を公開します。</p>
+      <p class="en">This policy may be updated without prior notice. The latest version will always be available on this page.</p>
+    </div>
+
+    <div class="contact-box">
+      <p class="ja">お問い合わせは <a href="mailto:oshiralabs@gmail.com">oshiralabs@gmail.com</a> までご連絡ください。</p>
+      <p class="en">For inquiries, please contact <a href="mailto:oshiralabs@gmail.com">oshiralabs@gmail.com</a>.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 OshiraLabs. All rights reserved.</p>
+    <a href="index.html">← Home</a>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const label  = document.getElementById('theme-label');
+    const html   = document.documentElement;
+
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      toggle.checked = true;
+      html.setAttribute('data-theme', 'dark');
+      label.textContent = 'Dark';
+    }
+    toggle.addEventListener('change', () => {
+      const dark = toggle.checked;
+      html.setAttribute('data-theme', dark ? 'dark' : 'light');
+      label.textContent = dark ? 'Dark' : 'Light';
+    });
+
+    function setLang(lang) {
+      html.setAttribute('data-lang', lang);
+      document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    }
+  </script>
+
+</body>
+</html>
